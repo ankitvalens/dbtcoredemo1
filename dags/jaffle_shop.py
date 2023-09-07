@@ -26,7 +26,8 @@ with DAG(
         dag_id="jaffle_shop_dbt",
         start_date=datetime(2023, 2, 6),
         schedule="@daily",
-        catchup=True
+        catchup=True,
+        depends_on_past=True
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
