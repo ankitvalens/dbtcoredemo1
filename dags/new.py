@@ -31,7 +31,8 @@ with DAG(
     e1 = EmptyOperator(task_id="pre_dbt")
 
     dbt_tg = DbtTaskGroup(
-        project_config=ProjectConfig(PROJECT_ROOT_PATH),
+        project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH,
+                                     manifest_path=f"{PROJECT_ROOT_PATH}/target/manifest.json"),
         profile_config=profile_config,
         render_config=RenderConfig(
             select=['tag:customers'],
