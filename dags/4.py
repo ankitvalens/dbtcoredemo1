@@ -49,9 +49,6 @@ with DAG(
         if 1 < 2:
             # Retry the task for the current date
             raise Exception("Task failed for the current date, retrying...")
-        elif execution_date < current_date:
-            # Skip the task for past dates
-            print(f"Skipping task for {execution_date}")
         else:
             # Task for future dates
             print(f"Running task for {execution_date}")
