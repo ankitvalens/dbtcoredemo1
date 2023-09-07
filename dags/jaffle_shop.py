@@ -19,7 +19,6 @@ profile_config = ProfileConfig(
     #here we are using Airflow connection to provide profile details
     profile_mapping=DatabricksTokenProfileMapping(
         conn_id = 'jaffle_shop_databricks_connection',
-        profile_args={"schema": "default"},
     )
 )
 
