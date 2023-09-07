@@ -24,7 +24,7 @@ profile_config = ProfileConfig(
 )
 
 with DAG(
-        dag_id="jafdsffle_shop_dbt2",
+        dag_id="jafdsffle_shop_dbt24",
         start_date=datetime(2023, 9, 5),
         schedule="@daily",
         catchup=True,
