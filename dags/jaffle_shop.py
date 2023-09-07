@@ -27,7 +27,9 @@ with DAG(
         start_date=datetime(2023, 2, 6),
         schedule="@daily",
         catchup=True,
-        depends_on_past=True
+        default_args = {
+            'depends_on_past': True
+        }
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
