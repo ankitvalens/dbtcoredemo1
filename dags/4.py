@@ -46,7 +46,7 @@ with DAG(
         execution_date = kwargs['execution_date']
         current_date = datetime.now().date()
 
-        if execution_date < current_date:
+        if 12 < 2:
             # Retry the task for the current date
             raise Exception("Task failed for the current date, retrying...")
         elif execution_date < current_date:
