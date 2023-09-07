@@ -32,7 +32,9 @@ with DAG(
     dbt_tg = DbtTaskGroup(
         project_config=ProjectConfig(PROJECT_ROOT_PATH),
         profile_config=profile_config,
-        select={"configs": ["tags:customers"]},
+        render_config=RenderConfig(
+            select=["tag:customers"],
+        )
     )
 
     e2 = EmptyOperator(task_id="post_dbt")
