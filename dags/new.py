@@ -23,13 +23,10 @@ profile_config = ProfileConfig(
 )
 
 with DAG(
-        dag_id="jaffle_shop_dbt_2",
-        start_date=datetime(2023, 2, 6),
+        dag_id="jaffle_shop_dbt_3",
+        start_date=datetime(2023, 9, 6),
         schedule="@daily",
-        catchup=True,
-        default_args = {
-            'depends_on_past': True
-        }
+        catchup=True
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
