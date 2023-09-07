@@ -1,3 +1,5 @@
+{{ config(tags=["customers"]) }}
+
 with
 source as (
     select * from {{ source('default','jaffle_shop_customers') }}
