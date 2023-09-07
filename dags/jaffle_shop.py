@@ -33,7 +33,7 @@ with DAG(
         project_config=ProjectConfig(PROJECT_ROOT_PATH),
         profile_config=profile_config,
         render_config=RenderConfig(
-            select=["tag:customers"],
+            select=['config(tags=["customers"])'],
         )
     )
 
