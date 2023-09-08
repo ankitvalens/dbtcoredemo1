@@ -39,7 +39,7 @@ with DAG(
         ),
         operator_args={
             "vars":{
-                "business_date":{{ ds }}
+                "business_date":[{{ execution_date }}]
             }
         }
     )
