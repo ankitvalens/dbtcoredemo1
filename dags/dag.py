@@ -23,7 +23,7 @@ profile_config = ProfileConfig(
 )
 
 with DAG(
-        dag_id="dag",
+        dag_id="dag1",
         start_date=datetime(2023, 9, 6),
         schedule="@daily",
         catchup=True
