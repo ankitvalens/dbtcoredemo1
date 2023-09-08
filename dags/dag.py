@@ -21,7 +21,7 @@ profile_config = ProfileConfig(
         conn_id = 'jaffle_shop_databricks_connection',
     )
 )
-dbt_var = { "execution_date":execution_date}
+dbt_var = '{{ ds }}'
 with DAG(
         dag_id="jaffle_shop_dbt_3",
         start_date=datetime(2023, 9, 6),
@@ -38,7 +38,9 @@ with DAG(
             load_method=LoadMode.DBT_MANIFEST
         ),
         operator_args={
-            "vars":dbt_var
+            "vars":{
+                'business_date':dbt_var
+            }
         }
     )
 
