@@ -2,7 +2,6 @@ version: 2
 
 models:
   - name: stg_customers
-    tags: ["customers"]
     columns:
       - name: customer_id
         description: unique and not null customer id
