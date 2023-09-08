@@ -23,7 +23,7 @@ profile_config = ProfileConfig(
 )
 
 with DAG(
-        dag_id="dag1",
+        dag_id="jaffle_shop_dbt_3",
         start_date=datetime(2023, 9, 6),
         schedule="@daily",
         catchup=True
@@ -35,9 +35,13 @@ with DAG(
                                      manifest_path=f"{PROJECT_ROOT_PATH}/target/manifest.json"),
         profile_config=profile_config,
         render_config=RenderConfig(
-            load_method=LoadMode.DBT_MANIFEST,
-            select=['tag:customer']
-        )
+            load_method=LoadMode.DBT_MANIFEST
+        ),
+        operator_args={
+            "vars":{
+                "business_date":{{ ds }}
+            }
+        }
     )
 
     e2 = EmptyOperator(task_id="post_dbt")

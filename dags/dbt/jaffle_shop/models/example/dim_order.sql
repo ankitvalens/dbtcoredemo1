@@ -8,6 +8,7 @@ total as (
     COUNT(*) AS total_orders
     FROM
         source
+    WHERE order_date = {{ var('business_date') }}
     GROUP BY
         order_date
     ORDER BY

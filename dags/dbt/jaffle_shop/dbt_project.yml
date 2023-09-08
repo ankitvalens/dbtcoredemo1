@@ -6,6 +6,10 @@ name: 'jaffle_shop'
 version: '1.0.0'
 config-version: 2
 
+
+vars:
+  # The `start_date` variable will be accessible in all resources
+  business_date: '2023-09-06'
 # This setting configures which "profile" dbt uses for this project.
 profile: 'jaffle_shop'
 
