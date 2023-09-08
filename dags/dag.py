@@ -35,7 +35,8 @@ with DAG(
                                      manifest_path=f"{PROJECT_ROOT_PATH}/target/manifest.json"),
         profile_config=profile_config,
         render_config=RenderConfig(
-            load_method=LoadMode.DBT_MANIFEST
+            load_method=LoadMode.DBT_MANIFEST,
+            select=['tag:customer']
         )
     )
 
