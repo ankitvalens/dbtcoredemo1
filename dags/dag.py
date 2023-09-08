@@ -39,7 +39,7 @@ with DAG(
         ),
         operator_args={
             "vars":{
-                "business_date":[{{ datetime(2023, 9, 8) }}]
+                "business_date":datetime(2023, 9, 8)
             }
         }
     )
