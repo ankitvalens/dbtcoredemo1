@@ -33,7 +33,7 @@ with DAG(
 
     t1 = FileSensor(
         task_id="wait_for_file",
-        filepath="*.txt",
+        filepath="dbt.txt",
         fs_conn_id="az_blob"
     )
 
