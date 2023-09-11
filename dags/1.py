@@ -31,9 +31,10 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
+
     t1 = WasbBlobSensor(
         task_id="wait_for_file",
-        fs_conn_id="az_blob",
+        wasb_conn_id="az_blob",
         container_name="guzzle",
         blob_name="dbt.txt"
     )
