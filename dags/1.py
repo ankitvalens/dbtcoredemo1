@@ -33,7 +33,7 @@ with DAG(
 
     t1 = FileSensor(
         task_id="wait_for_file",
-        filepath="dbt.txt",
+        filepath="https://guzzlestoragtaccount.blob.core.windows.net/guzzle/dbt.txt",
         fs_conn_id="az_blob"
     )
 
