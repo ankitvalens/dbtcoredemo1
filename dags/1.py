@@ -7,6 +7,7 @@ from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, 
 from cosmos.profiles import DatabricksTokenProfileMapping
 from cosmos.constants import TestBehavior
 from airflow.contrib.sensors.file_sensor import FileSensor
+from airflow.providers.microsoft.azure.operators.blob_storage import AzureBlobStorageSensor
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -31,10 +32,11 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
-    t1 = FileSensor(
+    t1 = AzureBlobStorageSensor(
         task_id="wait_for_file",
-        filepath="https://guzzlestoragtaccount.blob.core.windows.net/guzzle/dbt.txt",
-        fs_conn_id="az_blob"
+        fs_conn_id="az_blob",
+        container_name="guzzle",
+        blob_name="dbt.txt"
     )
 
     dbt_tg = DbtTaskGroup(
