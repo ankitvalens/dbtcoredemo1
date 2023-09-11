@@ -32,11 +32,11 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
-    t1 = AzureBlobStorageSensor(
+    t1 = FileSensor(
         task_id="wait_for_file",
         fs_conn_id="az_blob",
         container_name="guzzle",
-        blob_name="dbt.txt"
+        filepath="dbt.txt"
     )
 
     dbt_tg = DbtTaskGroup(
