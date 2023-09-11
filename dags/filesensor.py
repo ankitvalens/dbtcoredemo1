@@ -23,7 +23,7 @@ profile_config = ProfileConfig(
 )
 dbt_var = '{{ ds }}'
 with DAG(
-        dag_id="jaffle_shop_dbt_3",
+        dag_id="jaffle_shop_dbt_3_2",
         start_date=datetime(2023, 9, 6),
         catchup=True
 ):
