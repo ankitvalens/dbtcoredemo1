@@ -36,12 +36,7 @@ with DAG(
         profile_config=profile_config,
         render_config=RenderConfig(
             load_method=LoadMode.DBT_MANIFEST
-        ),
-        operator_args={
-            "vars":{
-                'business_date':dbt_var
-            }
-        }
+        )
     )
 
     e2 = EmptyOperator(task_id="post_dbt")
