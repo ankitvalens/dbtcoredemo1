@@ -34,7 +34,7 @@ with DAG(
     t1 = FileSensor(
         task_id="wait_for_file",
         filepath="*.txt",
-        conn_id="az_blob"
+        fs_conn_id="az_blob"
     )
 
     dbt_tg = DbtTaskGroup(
