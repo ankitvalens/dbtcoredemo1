@@ -30,11 +30,11 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
-    t1 = FileSensor(
-        taskid="wait_for_file",
-        filepath="*.txt",
-        conn_id="az_blob"
-    )
+    # t1 = FileSensor(
+    #     taskid="wait_for_file",
+    #     filepath="*.txt",
+    #     conn_id="az_blob"
+    # )
 
     dbt_tg = DbtTaskGroup(
         project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH,
