@@ -6,7 +6,7 @@ from airflow.operators.empty import EmptyOperator
 from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, ProjectConfig
 from cosmos.profiles import DatabricksTokenProfileMapping
 from cosmos.constants import TestBehavior
-from airflow.contrib.sensors.file_sensor import FileSensor
+from airflow.providers.microsoft.azure.sensors.blob import WasbBlobSensor
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
