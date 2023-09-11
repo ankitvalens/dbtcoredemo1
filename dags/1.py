@@ -6,6 +6,7 @@ from airflow.operators.empty import EmptyOperator
 from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, ProjectConfig
 from cosmos.profiles import DatabricksTokenProfileMapping
 from cosmos.constants import TestBehavior
+from airflow.contrib.sensors.file_sensor import FileSensor
 from airflow.contrib.sensors.wasb_sensor import WasbBlobSensor
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
@@ -31,10 +32,9 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
-
     t1 = WasbBlobSensor(
         task_id="wait_for_file",
-        wasb_conn_id="az_blob",
+        fs_conn_id="az_blob",
         container_name="guzzle",
         blob_name="dbt.txt"
     )
