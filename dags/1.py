@@ -34,7 +34,7 @@ with DAG(
 
     t1 = WasbBlobSensor(
         task_id="wait_for_file",
-        fs_conn_id="az_blob",
+        wasb_conn_id="az_blob",
         container_name="guzzle",
         blob_name="dbt.txt"
     )
