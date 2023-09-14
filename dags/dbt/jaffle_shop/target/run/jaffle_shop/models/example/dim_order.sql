@@ -12,6 +12,7 @@ total as (
     COUNT(*) AS total_orders
     FROM
         source
+    WHERE order_date = 2023-09-06
     GROUP BY
         order_date
     ORDER BY

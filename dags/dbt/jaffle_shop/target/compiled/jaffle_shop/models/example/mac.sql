@@ -1,0 +1,1 @@
+-- macros/send_logs_to_azure_monitor.sql
