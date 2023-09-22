@@ -5,6 +5,7 @@ from airflow.models import Variable
 from airflow.operators.empty import EmptyOperator
 from cosmos import ProfileConfig
 from cosmos.profiles import DatabricksTokenProfileMapping
+from airflow.operators.bash import BashOperator
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -29,8 +30,19 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
+
+    run_this = BashOperator(
+        task_id="run_after_loop",
+        bash_command="echo 1",
+    )
+
+
+    run_this_2 = BashOperator(
+        task_id="run_after_loop",
+        bash_command="mycliapp",
+    )
    
     e2 = EmptyOperator(task_id="post_dbt")
 
 
-    e1 >> e2
+    e1 >> run_this >> run_this_2 >> e2
