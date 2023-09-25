@@ -25,7 +25,7 @@ profile_config = ProfileConfig(
 )
 
 def my_function():
-    logging.info(profile_config)
+    logging.info(profile_config.profile_mapping)
     return "done"
 
 dbt_var = '{{ ds }}'
