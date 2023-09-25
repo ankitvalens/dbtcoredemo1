@@ -29,7 +29,7 @@ def my_function():
     conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
     logging.info(conn)
     logging.info(conn.get_extra())
-    logging.info(conn.get_host())
+    logging.info(conn.get_uri())
     return "done"
 
 dbt_var = '{{ ds }}'
