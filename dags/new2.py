@@ -9,7 +9,7 @@ from cosmos.constants import TestBehavior
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
-PROJECT_ROOT_PATH=Variable.get("JAFFLE_SHOP_PROJECT_ROOT_PATH")
+PROJECT_ROOT_PATH=Variable.get("PROJECT_ROOT_PATH")
 
 profile_config = ProfileConfig(
     profile_name="jaffle_shop",
