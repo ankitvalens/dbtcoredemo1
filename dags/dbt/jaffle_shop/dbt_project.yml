@@ -43,3 +43,6 @@ models:
     +enabled: false
     sources:
       +enabled: true
+
+on-run-end:
+  - "{{ dbt_artifacts.upload_results(results) }}"      
