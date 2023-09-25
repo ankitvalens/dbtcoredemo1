@@ -30,6 +30,7 @@ def my_function():
     logging.info(conn)
     logging.info(conn.get_extra())
     logging.info(conn.get_uri())
+    logging.info(conn.get_host())
     return "done"
 
 dbt_var = '{{ ds }}'
