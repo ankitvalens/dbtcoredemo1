@@ -29,7 +29,7 @@ with DAG(
         catchup=True
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
-
+    print(profile_config)    
 
     run_this = BashOperator(
         task_id="run_after_loop1",
