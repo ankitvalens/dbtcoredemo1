@@ -9,6 +9,7 @@ from airflow.operators.bash import BashOperator
 import logging
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.base_hook import BaseHook
+import re
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -30,7 +31,12 @@ def my_function():
     logging.info(conn)
     logging.info(conn.get_extra())
     logging.info(conn.get_uri())
-    logging.info(conn.get_host())
+    pattern = r"databricks://([a-zA-Z0-9.-]+)"
+
+# Use re.search to find the match
+    match = re.search(pattern, conn.get_uri())
+    if match:
+        logging.info(match.group(1))
     return "done"
 
 dbt_var = '{{ ds }}'
