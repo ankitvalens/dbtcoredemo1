@@ -2,8 +2,8 @@
     "metadata": {
         "dbt_schema_version": "https://schemas.getdbt.com/dbt/manifest/v10.json",
         "dbt_version": "1.6.1",
-        "generated_at": "2023-09-25T09:32:58.263146Z",
-        "invocation_id": "3abd93ec-6f16-452d-9b6e-03755bc4d789",
+        "generated_at": "2023-09-25T09:47:15.537418Z",
+        "invocation_id": "8eff6bc8-082b-42b6-b624-c07237479c05",
         "env": {},
         "project_name": "jaffle_shop",
         "project_id": "06e5b98c2db46f8a72cc4f66410e9b3b",
@@ -89,7 +89,7 @@
                 "node_color": null
             },
             "patch_path": "jaffle_shop://models/example/stg_jaffle_shop.yml",
-            "build_path": null,
+            "build_path": "target/run/jaffle_shop/models/example/stg_orders.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "view"
@@ -112,7 +112,11 @@
                     "source.jaffle_shop.default.jaffle_shop_orders"
                 ]
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/jaffle_shop/models/example/stg_orders.sql",
+            "compiled": true,
+            "compiled_code": "with\nsource as (\n    select * from `hive_metastore`.`default`.`jaffle_shop_orders`\n),\n\norders1 as (\n    select * from source\n)\nselect * from orders1",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -185,7 +189,7 @@
                 "node_color": null
             },
             "patch_path": null,
-            "build_path": null,
+            "build_path": "target/run/jaffle_shop/models/example/stg_customer.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "view",
@@ -211,7 +215,11 @@
                     "source.jaffle_shop.default.jaffle_shop_customers"
                 ]
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/jaffle_shop/models/example/stg_customer.sql",
+            "compiled": true,
+            "compiled_code": "\n\nwith source as (\n    select * from `hive_metastore`.`default`.`jaffle_shop_customers`\n),\ncustomers1 as (\n    select * from source\n)\n\nselect * from customers1",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -280,7 +288,7 @@
                 "node_color": null
             },
             "patch_path": null,
-            "build_path": null,
+            "build_path": "target/run/jaffle_shop/models/example/dim_order.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "view"
@@ -304,7 +312,11 @@
                     "model.jaffle_shop.stg_orders"
                 ]
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/jaffle_shop/models/example/dim_order.sql",
+            "compiled": true,
+            "compiled_code": "with source as (\n    select * from `default`.`stg_orders`\n),\n\ntotal as (\n    SELECT\n    order_date,\n    COUNT(*) AS total_orders\n    FROM\n        source\n    -- WHERE order_date = 2023-09-06\n    GROUP BY\n        order_date\n    ORDER BY\n        order_date\n)\nselect * from total",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -485,7 +497,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/sources.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/sources.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -512,7 +524,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/sources.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as string) as database,\n    cast(null as string) as schema,\n    cast(null as string) as source_name,\n    cast(null as string) as loader,\n    cast(null as string) as name,\n    cast(null as string) as identifier,\n    cast(null as string) as loaded_at_field,\n    \n        cast(null as string) as freshness,\n    \n    cast(null as string) as all_results\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -702,7 +718,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/test_executions.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/test_executions.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -732,7 +748,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/test_executions.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as boolean) as was_full_refresh,\n    cast(null as string) as thread_id,\n    cast(null as string) as status,\n    cast(null as timestamp) as compile_started_at,\n    cast(null as timestamp) as query_completed_at,\n    cast(null as float) as total_node_runtime,\n    cast(null as integer) as rows_affected,\n    cast(null as integer) as failures,\n    cast(null as string) as message,\n    cast(null as string) as adapter_response\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -949,7 +969,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/snapshot_executions.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/snapshot_executions.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -979,7 +999,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/snapshot_executions.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as boolean) as was_full_refresh,\n    cast(null as string) as thread_id,\n    cast(null as string) as status,\n    cast(null as timestamp) as compile_started_at,\n    cast(null as timestamp) as query_completed_at,\n    cast(null as float) as total_node_runtime,\n    cast(null as integer) as rows_affected,\n    cast(null as string) as materialization,\n    cast(null as string) as schema,\n    cast(null as string) as name,\n    cast(null as string) as alias,\n    cast(null as string) as message,\n    cast(null as string) as adapter_response\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -1178,7 +1202,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/snapshots.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/snapshots.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -1206,7 +1230,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/snapshots.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as string) as database,\n    cast(null as string) as schema,\n    cast(null as string) as name,\n    cast(null as string) as depends_on_nodes,\n    cast(null as string) as package_name,\n    cast(null as string) as path,\n    cast(null as string) as checksum,\n    cast(null as string) as strategy,\n    cast(null as string) as meta,\n    cast(null as string) as alias,\n    cast(null as string) as all_results\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -1387,7 +1415,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/seeds.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/seeds.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -1414,7 +1442,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/seeds.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as string) as database,\n    cast(null as string) as schema,\n    cast(null as string) as name,\n    cast(null as string) as package_name,\n    cast(null as string) as path,\n    cast(null as string) as checksum,\n    cast(null as string) as meta,\n    cast(null as string) as alias,\n    cast(null as string) as all_results\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -1604,7 +1636,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/exposures.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/exposures.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -1632,7 +1664,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/exposures.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as string) as name,\n    cast(null as string) as type,\n    cast(null as string) as owner,\n    cast(null as string) as maturity,\n    cast(null as string) as path,\n    cast(null as string) as description,\n    cast(null as string) as url,\n    cast(null as string) as package_name,\n    cast(null as string) as depends_on_nodes,\n    cast(null as string) as tags,\n    cast(null as string) as all_results\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -1840,7 +1876,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/models.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/models.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -1868,7 +1904,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/models.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as string) as database,\n    cast(null as string) as schema,\n    cast(null as string) as name,\n    cast(null as string) as depends_on_nodes,\n    cast(null as string) as package_name,\n    cast(null as string) as path,\n    cast(null as string) as checksum,\n    cast(null as string) as materialization,\n    cast(null as string) as tags,\n    cast(null as string) as meta,\n    cast(null as string) as alias,\n    cast(null as string) as all_results\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -2022,7 +2062,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/tests.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/tests.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -2050,7 +2090,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/tests.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as string) as name,\n    cast(null as string) as depends_on_nodes,\n    cast(null as string) as package_name,\n    cast(null as string) as test_path,\n    cast(null as string) as tags,\n    cast(null as string) as all_results\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -2294,7 +2338,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/invocations.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/invocations.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -2323,7 +2367,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/invocations.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as dbt_version,\n    cast(null as string) as project_name,\n    cast(null as timestamp) as run_started_at,\n    cast(null as string) as dbt_command,\n    cast(null as boolean) as full_refresh_flag,\n    cast(null as string) as target_profile_name,\n    cast(null as string) as target_name,\n    cast(null as string) as target_schema,\n    cast(null as integer) as target_threads,\n    cast(null as string) as dbt_cloud_project_id,\n    cast(null as string) as dbt_cloud_job_id,\n    cast(null as string) as dbt_cloud_run_id,\n    cast(null as string) as dbt_cloud_run_reason_category,\n    cast(null as string) as dbt_cloud_run_reason,\n    cast(null as string) as env_vars,\n    cast(null as string) as dbt_vars,\n    cast(null as string) as invocation_args,\n    cast(null as string) as dbt_custom_envs\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -2540,7 +2588,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/seed_executions.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/seed_executions.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -2570,7 +2618,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/seed_executions.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as boolean) as was_full_refresh,\n    cast(null as string) as thread_id,\n    cast(null as string) as status,\n    cast(null as timestamp) as compile_started_at,\n    cast(null as timestamp) as query_completed_at,\n    cast(null as float) as total_node_runtime,\n    cast(null as integer) as rows_affected,\n    cast(null as string) as materialization,\n    cast(null as string) as schema,\n    cast(null as string) as name,\n    cast(null as string) as alias,\n    cast(null as string) as message,\n    cast(null as string) as adapter_response\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
@@ -2787,7 +2839,7 @@
                 "node_color": null
             },
             "patch_path": "dbt_artifacts://models/sources/model_executions.yml",
-            "build_path": null,
+            "build_path": "target/run/dbt_artifacts/models/sources/model_executions.sql",
             "deferred": false,
             "unrendered_config": {
                 "materialized": "incremental",
@@ -2817,7 +2869,11 @@
                 ],
                 "nodes": []
             },
-            "compiled_path": null,
+            "compiled_path": "target/compiled/dbt_artifacts/models/sources/model_executions.sql",
+            "compiled": true,
+            "compiled_code": "/* Bigquery won't let us `where` without `from` so we use this workaround */\nwith dummy_cte as (\n    select 1 as foo\n)\n\nselect\n    cast(null as string) as command_invocation_id,\n    cast(null as string) as node_id,\n    cast(null as timestamp) as run_started_at,\n    cast(null as boolean) as was_full_refresh,\n    cast(null as string) as thread_id,\n    cast(null as string) as status,\n    cast(null as timestamp) as compile_started_at,\n    cast(null as timestamp) as query_completed_at,\n    cast(null as float) as total_node_runtime,\n    cast(null as integer) as rows_affected,\n    \n    cast(null as string) as materialization,\n    cast(null as string) as schema,\n    cast(null as string) as name,\n    cast(null as string) as alias,\n    cast(null as string) as message,\n    cast(null as string) as adapter_response\nfrom dummy_cte\nwhere 1 = 0",
+            "extra_ctes_injected": true,
+            "extra_ctes": [],
             "contract": {
                 "enforced": false,
                 "checksum": null
