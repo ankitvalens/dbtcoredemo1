@@ -28,7 +28,8 @@ profile_config = ProfileConfig(
 def my_function():
     conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
     logging.info(conn)
-    logging.info(conn.hostname)
+    logging.info(conn.get_extra())
+    logging.info(conn.get_host())
     return "done"
 
 dbt_var = '{{ ds }}'
