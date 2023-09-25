@@ -8,6 +8,7 @@ from cosmos.profiles import DatabricksTokenProfileMapping
 from airflow.operators.bash import BashOperator
 import logging
 from airflow.operators.python_operator import PythonOperator
+from airflow.hooks.base_hook import BaseHook
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -25,7 +26,9 @@ profile_config = ProfileConfig(
 )
 
 def my_function():
-    logging.info(profile_config.profile_mapping)
+    conn = BaseHook.get_connection('bigquery_connection')
+    logging.info(conn)
+    logging.info(conn.hostname)
     return "done"
 
 dbt_var = '{{ ds }}'
