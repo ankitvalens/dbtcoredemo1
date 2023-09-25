@@ -26,7 +26,7 @@ profile_config = ProfileConfig(
 )
 
 def my_function():
-    conn = BaseHook.get_connection('bigquery_connection')
+    conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
     logging.info(conn)
     logging.info(conn.hostname)
     return "done"
