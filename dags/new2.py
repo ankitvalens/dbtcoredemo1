@@ -6,6 +6,8 @@ from airflow.operators.empty import EmptyOperator
 from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, ProjectConfig
 from cosmos.profiles import DatabricksTokenProfileMapping
 from cosmos.constants import TestBehavior
+import logging
+from airflow.operators.python_operator import PythonOperator
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -21,6 +23,10 @@ profile_config = ProfileConfig(
         conn_id = 'jaffle_shop_databricks_connection' 
     )
 )
+
+def my_function(dbt):
+    logging.info(dbt)
+    return "done"
 
 with DAG(
         dag_id="jaffle_shop_dbt",
@@ -38,6 +44,11 @@ with DAG(
             #By default cosmos generate dag that execute model and test for that model, if you don't want to use test then pass test_behavior=TestBehavior.NONE
             #test_behavior=TestBehavior.NONE
         ),
+    )
+
+    t1 = PythonOperator(
+        task_id='print',
+        python_callable= my_function(dbt_tg),
     )
 
     e2 = EmptyOperator(task_id="post_dbt")
