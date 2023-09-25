@@ -1,7 +1,9 @@
 with
-orders as (
+source as (
     select * from {{ source('default','jaffle_shop_orders') }}
 ),
 
-
-select * from orders
+orders1 as (
+    select * from source
+)
+select * from orders1
