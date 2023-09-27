@@ -44,33 +44,25 @@ def my_function():
     return "done"
 
 def generate_cred():
+    conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
+    logging.info(conn)
+    logging.info(conn.get_extra())
+    logging.info(conn.get_uri())
+    pattern = r"databricks://([a-zA-Z0-9.-]+)"
+
+    # Use re.search to find the match
+    match = re.search(pattern, conn.get_uri())
+    if match:
+        logging.info(match.group(1))
     credentials = {
-        'credential1': 'value1',
+        'connection_string': str(match.group(1)),
         'credential2': 'value2',
         'credential3': 'value3',
     }
-    current_directory = os.getcwd()
 
-
-# List all files and directories in the current directory
-
-    with open('credentials.json', 'w') as file:
+    with open('profile.json', 'w') as file:
         json.dump(credentials, file)  
 
-    current_directory = os.getcwd() + '/credentials.json'
-    dest_dir = '/tmp/'
-    shutil.copy(current_directory, dest_dir)   
-
-    file_list = os.listdir('/tmp/')
-
-# Print the list of files and directories
-    for item in file_list:
-        print(item) 
-
-
-    # for root, _, files in os.walk('/'):
-    #     if filename in files:
-    #         return os.path.join(root, filename)
 
 
 dbt_var = '{{ ds }}'
