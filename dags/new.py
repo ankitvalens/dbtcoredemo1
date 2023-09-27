@@ -57,10 +57,10 @@ def generate_cred():
         json.dump(credentials, file)  
 
     current_directory = os.getcwd() + '/credentials.json'
-    dest_dir = '/opt/'
+    dest_dir = '/tmp/'
     shutil.copy(current_directory, dest_dir)   
 
-    file_list = os.listdir('/tmp')
+    file_list = os.listdir('/opt')
 
 # Print the list of files and directories
     for item in file_list:
