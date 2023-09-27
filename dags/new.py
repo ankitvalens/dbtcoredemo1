@@ -48,9 +48,8 @@ def generate_cred():
     logging.info(conn)
     logging.info(conn.get_extra())
     logging.info(conn.host)
-    extras = conn.get_extra()
-    json_data = json.dumps(extras, indent=2)
-    logging.info(json_data["token"])
+    extras_dict = json.loads(conn.get_extra())
+    logging.info(extras_dict["token"])
 
     credentials = {
         'connection_string': str(conn.host),
