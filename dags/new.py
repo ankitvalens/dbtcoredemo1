@@ -32,12 +32,16 @@ profile_config = ProfileConfig(
 
 def generate_cred():
     conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
-    extras_dict = json.loads(conn.get_extra())
+    databricks_extras_dict = json.loads(conn.get_extra())
 
+    az_conn = BaseHook.get_connection('azure_monitor')
+    azure_monitor_extras_dict = json.loads(az_conn.get_extra())
     credentials = {
         'connection_string': str(conn.host),
-        'token': str(extras_dict["token"]),
-        'http_path': str(extras_dict["http_path"]),
+        'token': str(databricks_extras_dict["token"]),
+        'http_path': str(databricks_extras_dict["http_path"]),
+        'workspace_id':str(azure_monitor_extras_dict['workspace_id']),
+        'primary_key':str(azure_monitor_extras_dict['primary_key'])
     }
 
     with open('/tmp/credentials.json', 'w') as file:
