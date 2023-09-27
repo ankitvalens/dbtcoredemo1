@@ -47,16 +47,13 @@ def generate_cred():
     conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
     logging.info(conn)
     logging.info(conn.get_extra())
-    logging.info(conn.get_uri())
     logging.info(conn.host)
-    pattern = r"databricks://([a-zA-Z0-9.-]+)"
+    extras = conn.get_extra()
+    logging.info(extras('token'))
+    logging.info(extras('http_path'))
 
-    # Use re.search to find the match
-    match = re.search(pattern, conn.get_uri())
-    if match:
-        logging.info(match.group(1))
     credentials = {
-        'connection_string': str(match.group(1)),
+        'connection_string': str(conn.host),
         'credential2': 'value2',
         'credential3': 'value3',
     }
