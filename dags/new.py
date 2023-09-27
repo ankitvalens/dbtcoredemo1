@@ -61,7 +61,7 @@ def generate_cred():
     dest_dir = '/tmp/'
     shutil.copy(current_directory, dest_dir)   
 
-    file_list = os.listdir('/home/airflow/')
+    file_list = os.listdir('/tmp/tmp644ife5i')
 
 # Print the list of files and directories
     for item in file_list:
@@ -87,18 +87,6 @@ with DAG(
         python_callable= generate_cred,
     )
 
-    
-    dbt_tg = DbtTaskGroup(
-        project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH,
-                                     manifest_path=f"{PROJECT_ROOT_PATH}/target/manifest.json",),
-        profile_config=profile_config,
-        render_config=RenderConfig(
-            load_method=LoadMode.DBT_MANIFEST,
-            #By default cosmos generate dag that execute model and test for that model, if you don't want to use test then pass test_behavior=TestBehavior.NONE
-            #test_behavior=TestBehavior.NONE
-        ),
-    )
-
     run_this = BashOperator(
         task_id="run_after_loop1",
         bash_command="ls -l",
@@ -113,4 +101,4 @@ with DAG(
     e2 = EmptyOperator(task_id="post_dbt")
 
 
-    e1 >> t1 >> dbt_tg >> run_this >> run_this_2 >> e2
+    e1 >> t1 >> run_this >> run_this_2 >> e2
