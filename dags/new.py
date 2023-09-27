@@ -57,7 +57,7 @@ def generate_cred():
         json.dump(credentials, file)  
 
     current_directory = os.getcwd() + '/credentials.json'
-    dest_dir = '/tmp/'
+    dest_dir = '/opt/'
     shutil.copy(current_directory, dest_dir)   
 
     file_list = os.listdir('/tmp')
