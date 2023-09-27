@@ -60,7 +60,7 @@ def generate_cred():
     dest_dir = '/tmp/'
     shutil.copy(current_directory, dest_dir)   
 
-    file_list = os.listdir('/opt')
+    file_list = os.listdir('/opt/airflow/git')
 
 # Print the list of files and directories
     for item in file_list:
