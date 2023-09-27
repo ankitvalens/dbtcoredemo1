@@ -10,6 +10,7 @@ import logging
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.base_hook import BaseHook
 import re
+import json
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -33,6 +34,16 @@ def my_function():
     logging.info(conn.get_uri())
     pattern = r"databricks://([a-zA-Z0-9.-]+)"
 
+def generate_cred():
+    credentials = {
+        'credential1': 'value1',
+        'credential2': 'value2',
+        'credential3': 'value3',
+    }
+
+    with open('credentials.json', 'w') as file:
+        json.dump(credentials, file)  
+
 # Use re.search to find the match
     match = re.search(pattern, conn.get_uri())
     if match:
@@ -41,7 +52,7 @@ def my_function():
 
 dbt_var = '{{ ds }}'
 with DAG(
-        dag_id="jaffle_shop_dbt_3_22",
+        dag_id="1_jaffle_shop_dbt_3_22",
         start_date=datetime(2023, 9, 6),
         schedule="@daily",
         catchup=True
@@ -50,7 +61,7 @@ with DAG(
 
     t1 = PythonOperator(
         task_id='print',
-        python_callable= my_function,
+        python_callable= generate_cred,
     )
 
     run_this = BashOperator(
