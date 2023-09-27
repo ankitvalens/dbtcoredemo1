@@ -67,7 +67,7 @@ with DAG(
 
     run_this = BashOperator(
         task_id="run_after_loop1",
-        bash_command="echo 1",
+        bash_command="ls -l",
     )
 
 
