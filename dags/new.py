@@ -45,16 +45,12 @@ def my_function():
 
 def generate_cred():
     conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
-    logging.info(conn)
-    logging.info(conn.get_extra())
-    logging.info(conn.host)
     extras_dict = json.loads(conn.get_extra())
-    logging.info(extras_dict["token"])
 
     credentials = {
         'connection_string': str(conn.host),
-        'credential2': 'value2',
-        'credential3': 'value3',
+        'token': str(extras_dict["token"]),
+        'http_path': str(extras_dict["http_path"]),
     }
 
     with open('profile.json', 'w') as file:
