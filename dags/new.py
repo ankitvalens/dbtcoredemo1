@@ -48,6 +48,7 @@ def generate_cred():
     logging.info(conn)
     logging.info(conn.get_extra())
     logging.info(conn.get_uri())
+    logging.info(conn.host)
     pattern = r"databricks://([a-zA-Z0-9.-]+)"
 
     # Use re.search to find the match
@@ -63,6 +64,7 @@ def generate_cred():
     with open('profile.json', 'w') as file:
         json.dump(credentials, file)  
 
+    print(credentials)
 
 
 dbt_var = '{{ ds }}'
