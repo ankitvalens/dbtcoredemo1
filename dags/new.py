@@ -34,6 +34,12 @@ def my_function():
     logging.info(conn.get_uri())
     pattern = r"databricks://([a-zA-Z0-9.-]+)"
 
+    # Use re.search to find the match
+    match = re.search(pattern, conn.get_uri())
+    if match:
+        logging.info(match.group(1))
+    return "done"
+
 def generate_cred():
     credentials = {
         'credential1': 'value1',
@@ -44,11 +50,6 @@ def generate_cred():
     with open('credentials.json', 'w') as file:
         json.dump(credentials, file)  
 
-# Use re.search to find the match
-    match = re.search(pattern, conn.get_uri())
-    if match:
-        logging.info(match.group(1))
-    return "done"
 
 dbt_var = '{{ ds }}'
 with DAG(
