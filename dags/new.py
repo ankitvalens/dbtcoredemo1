@@ -30,19 +30,6 @@ profile_config = ProfileConfig(
     )
 )
 
-def my_function():
-    conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
-    logging.info(conn)
-    logging.info(conn.get_extra())
-    logging.info(conn.get_uri())
-    pattern = r"databricks://([a-zA-Z0-9.-]+)"
-
-    # Use re.search to find the match
-    match = re.search(pattern, conn.get_uri())
-    if match:
-        logging.info(match.group(1))
-    return "done"
-
 def generate_cred():
     conn = BaseHook.get_connection('jaffle_shop_databricks_connection')
     extras_dict = json.loads(conn.get_extra())
@@ -53,7 +40,7 @@ def generate_cred():
         'http_path': str(extras_dict["http_path"]),
     }
 
-    with open('profile.json', 'w') as file:
+    with open('credentials.json', 'w') as file:
         json.dump(credentials, file)  
 
     print(credentials)
