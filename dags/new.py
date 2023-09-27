@@ -52,17 +52,19 @@ def generate_cred():
 
 
 # List all files and directories in the current directory
-    file_list = os.listdir(current_directory)
 
-# Print the list of files and directories
-    for item in file_list:
-        print(item)
     with open('credentials.json', 'w') as file:
         json.dump(credentials, file)  
 
     current_directory = os.getcwd() + '/credentials.json'
     dest_dir = '/tmp/'
-    shutil.copy(current_directory, dest_dir)    
+    shutil.copy(current_directory, dest_dir)   
+
+    file_list = os.listdir('/tmp')
+
+# Print the list of files and directories
+    for item in file_list:
+        print(item) 
 
 
 dbt_var = '{{ ds }}'
