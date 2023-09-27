@@ -60,6 +60,13 @@ def generate_cred():
     dest_dir = '/tmp/'
     shutil.copy(current_directory, dest_dir)   
 
+    file_list = os.listdir('/home/airflow/')
+
+# Print the list of files and directories
+    for item in file_list:
+        print(item) 
+
+
     file_list = os.listdir('/home/airflow/.profile')
 
 # Print the list of files and directories
