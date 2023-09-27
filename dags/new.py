@@ -40,7 +40,7 @@ def generate_cred():
         'http_path': str(extras_dict["http_path"]),
     }
 
-    with open('credentials.json', 'w') as file:
+    with open('/tmp/credentials.json', 'w') as file:
         json.dump(credentials, file)  
 
     print(credentials)
