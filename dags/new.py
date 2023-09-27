@@ -61,7 +61,7 @@ def generate_cred():
     dest_dir = '/tmp/'
     shutil.copy(current_directory, dest_dir)   
 
-    file_list = os.listdir('/tmp/tmp644ife5i')
+    file_list = os.listdir('/tmp/')
 
 # Print the list of files and directories
     for item in file_list:
