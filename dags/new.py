@@ -12,6 +12,7 @@ from airflow.hooks.base_hook import BaseHook
 import re
 import json
 import os
+import shutil
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -49,6 +50,7 @@ def generate_cred():
     }
     current_directory = os.getcwd()
 
+
 # List all files and directories in the current directory
     file_list = os.listdir(current_directory)
 
@@ -57,6 +59,10 @@ def generate_cred():
         print(item)
     with open('credentials.json', 'w') as file:
         json.dump(credentials, file)  
+
+    current_directory = os.getcwd() + '/credentials.json'
+    dest_dir = '/tmp/'
+    shutil.copy(current_directory, dest_dir)    
 
 
 dbt_var = '{{ ds }}'
