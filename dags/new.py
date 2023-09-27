@@ -3,8 +3,9 @@ from pendulum import datetime
 from airflow import DAG
 from airflow.models import Variable
 from airflow.operators.empty import EmptyOperator
-from cosmos import ProfileConfig
 from cosmos.profiles import DatabricksTokenProfileMapping
+from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, ProjectConfig
+from cosmos.constants import TestBehavior
 from airflow.operators.bash import BashOperator
 import logging
 from airflow.operators.python_operator import PythonOperator
@@ -67,11 +68,9 @@ def generate_cred():
         print(item) 
 
 
-    file_list = os.listdir('/home/airflow/.profile')
-
-# Print the list of files and directories
-    for item in file_list:
-        print(item) 
+    # for root, _, files in os.walk('/'):
+    #     if filename in files:
+    #         return os.path.join(root, filename)
 
 
 dbt_var = '{{ ds }}'
@@ -88,6 +87,18 @@ with DAG(
         python_callable= generate_cred,
     )
 
+    
+    dbt_tg = DbtTaskGroup(
+        project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH,
+                                     manifest_path=f"{PROJECT_ROOT_PATH}/target/manifest.json",),
+        profile_config=profile_config,
+        render_config=RenderConfig(
+            load_method=LoadMode.DBT_MANIFEST,
+            #By default cosmos generate dag that execute model and test for that model, if you don't want to use test then pass test_behavior=TestBehavior.NONE
+            #test_behavior=TestBehavior.NONE
+        ),
+    )
+
     run_this = BashOperator(
         task_id="run_after_loop1",
         bash_command="ls -l",
@@ -102,4 +113,4 @@ with DAG(
     e2 = EmptyOperator(task_id="post_dbt")
 
 
-    e1 >> t1 >> run_this >> run_this_2 >> e2
+    e1 >> t1 >> dbt_tg >> run_this >> run_this_2 >> e2
