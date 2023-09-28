@@ -46,12 +46,6 @@ with DAG(
         ),
     )
 
-    t1 = PythonOperator(
-        task_id='print',
-        python_callable= my_function,
-        op_kwargs = {"dbt_tg" : dbt_tg},
-    ),
-
     e2 = EmptyOperator(task_id="post_dbt")
 
     e1 >> dbt_tg >> e2

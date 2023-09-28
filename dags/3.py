@@ -24,9 +24,6 @@ profile_config = ProfileConfig(
     )
 )
 
-def my_function(dbt):
-    logging.info(dbt)
-    return "done"
 
 with DAG(
         dag_id="jaffle_shop_dbt_dfjfn",
@@ -45,12 +42,6 @@ with DAG(
             #test_behavior=TestBehavior.NONE
         ),
     )
-
-    t1 = PythonOperator(
-        task_id='print',
-        python_callable= my_function,
-        op_kwargs = {"dbt_tg" : dbt_tg},
-    ),
 
     e2 = EmptyOperator(task_id="post_dbt")
 
