@@ -42,7 +42,7 @@ def generate_cred():
 
 with DAG(
         dag_id="1_jaffle_shop_dbt_3_22",
-        start_date=datetime(2023, 9, 6),
+        start_date=datetime(2023, 9, 27),
         schedule="@daily",
         catchup=True
 ):

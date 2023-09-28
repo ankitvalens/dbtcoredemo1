@@ -30,7 +30,7 @@ def my_function(dbt):
 
 with DAG(
         dag_id="jaffle_shop_dbt_dfjfn",
-        start_date=datetime(2023, 8, 23),
+        start_date=datetime(2023, 9, 27),
         schedule="@daily",
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
