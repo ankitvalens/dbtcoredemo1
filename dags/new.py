@@ -67,4 +67,4 @@ with DAG(
     e2 = EmptyOperator(task_id="post_dbt")
 
 
-    e1 >> t1 >> run_this >> run_this_2 >> e2
+    e1 >> run_this >> run_this_2 >> e2
