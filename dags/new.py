@@ -9,6 +9,7 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.base_hook import BaseHook
 import json
+import logging
 import os
 
 PROJECT_ROOT_PATH=Variable.get("PROJECT_ROOT_PATH")
@@ -40,7 +41,7 @@ def generate_cred():
     # List all files and directories in the root directory
     file_list = os.listdir(root_directory)
 
-    print(file_list)
+    logging.info(file_list)
 
 
 with DAG(
