@@ -43,6 +43,12 @@ with DAG(
         ),
     )
 
+
+    run_this_2 = BashOperator(
+        task_id="run_after_loop",
+        bash_command="mycliapp",
+    )
+
     e2 = EmptyOperator(task_id="post_dbt")
 
-    e1 >> dbt_tg >> e2
+    e1 >> dbt_tg >> run_this_2 >> e2
