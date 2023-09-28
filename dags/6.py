@@ -58,7 +58,7 @@ with DAG(
 
     run_this_2 = BashOperator(
         task_id="run_after_loop",
-        bash_command=f"mycliapp --name={{ dag_run.logical_date }}",
+        bash_command="mycliapp",
     )
 
     e2 = EmptyOperator(task_id="post_dbt")
