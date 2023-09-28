@@ -46,16 +46,6 @@ with DAG(
         ),
     )
 
-    @task(task_id="task")
-    def demo(**kwargs):
-        logging.info("kwargs['dag_run'].start_date:")
-        logging.info(kwargs["dag_run"].start_date)
-        logging.info("kwargs['dag_run'].execution_date:")
-        logging.info(kwargs["dag_run"].execution_date)
-
-    task1 = demo()
-
-
     run_this_2 = BashOperator(
         task_id="run_after_loop",
         bash_command="mycliapp",
@@ -63,4 +53,4 @@ with DAG(
 
     e2 = EmptyOperator(task_id="post_dbt")
 
-    e1 >> task1 >> dbt_tg >> run_this_2 >> e2
+    e1 >> dbt_tg >> run_this_2 >> e2
