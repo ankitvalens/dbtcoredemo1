@@ -13,14 +13,16 @@ PROJECT_ROOT_PATH=Variable.get("PROJECT_ROOT_PATH")
 
 profile_config = ProfileConfig(
     profile_name="jaffle_shop",
-    target_name="dev",
+    target_name="   ",
     #If you are using profiles.yml file in git use below profiles_yml_filepath
     #profiles_yml_filepath=f"{PROJECT_ROOT_PATH}/profiles.yml",
     #here we are using Airflow connection to provide profile details
     profile_mapping=DatabricksTokenProfileMapping(
-        conn_id = 'jaffle_shop_databricks_connection' 
+        conn_id = 'jaffle_shop_databricks_connection',
+        profile_args={
+            "schema": "default"
+        } 
     ),
-    schema="default"
 )
 
 with DAG(
