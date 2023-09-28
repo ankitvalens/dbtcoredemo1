@@ -9,6 +9,7 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.hooks.base_hook import BaseHook
 import json
+import os
 
 PROJECT_ROOT_PATH=Variable.get("PROJECT_ROOT_PATH")
 
@@ -34,10 +35,12 @@ def generate_cred():
         'primary_key':str(azure_monitor_extras_dict['primary_key'])
     }
 
-    with open('/tmp/credentials.json', 'w') as file:
-        json.dump(credentials, file)  
+    root_directory = '/opt/airflow/git/dbtcoredemo1.git/dags/dbt/jaffle_shop/'  # Use '/' to represent the root directory
 
-    print(credentials)
+    # List all files and directories in the root directory
+    file_list = os.listdir(root_directory)
+
+    print(file_list)
 
 
 with DAG(
@@ -48,10 +51,10 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
-    # t1 = PythonOperator(
-    #     task_id='print',
-    #     python_callable= generate_cred,
-    # )
+    t1 = PythonOperator(
+        task_id='print',
+        python_callable= generate_cred,
+    )
 
     run_this = BashOperator(
         task_id="run_after_loop1",
@@ -67,4 +70,4 @@ with DAG(
     e2 = EmptyOperator(task_id="post_dbt")
 
 
-    e1 >> run_this >> run_this_2 >> e2
+    e1 >> t1 >> run_this >> run_this_2 >> e2
