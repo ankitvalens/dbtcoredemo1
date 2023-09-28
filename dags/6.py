@@ -7,6 +7,8 @@ from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, 
 from cosmos.profiles import DatabricksTokenProfileMapping
 from cosmos.constants import TestBehavior
 from airflow.operators.bash_operator import BashOperator
+from airflow.decorators import task
+import logging
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -44,6 +46,15 @@ with DAG(
         ),
     )
 
+    @task(task_id="task")
+    def demo(**kwargs):
+        logging.info("kwargs['dag_run'].start_date:")
+        logging.info(kwargs["dag_run"].start_date)
+        logging.info("kwargs['dag_run'].execution_date:")
+        logging.info(kwargs["dag_run"].execution_date)
+
+    task1 = demo()
+
 
     run_this_2 = BashOperator(
         task_id="run_after_loop",
@@ -52,4 +63,4 @@ with DAG(
 
     e2 = EmptyOperator(task_id="post_dbt")
 
-    e1 >> dbt_tg >> run_this_2 >> e2
+    e1 >> task1 >> dbt_tg >> run_this_2 >> e2
