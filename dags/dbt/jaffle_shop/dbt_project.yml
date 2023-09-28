@@ -26,7 +26,7 @@ snapshot-paths: ["snapshots"]
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
-
+/home/ankit/dbtcoredemo/dags/dbt/jaffle_shop/dbt_project.yml
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
