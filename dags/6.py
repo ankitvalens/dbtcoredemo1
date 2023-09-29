@@ -16,7 +16,7 @@ PROJECT_ROOT_PATH=Variable.get("PROJECT_ROOT_PATH")
 
 profile_config = ProfileConfig(
     profile_name="jaffle_shop",
-    target_name="   ",
+    target_name="dev",
     #If you are using profiles.yml file in git use below profiles_yml_filepath
     #profiles_yml_filepath=f"{PROJECT_ROOT_PATH}/profiles.yml",
     #here we are using Airflow connection to provide profile details
@@ -48,7 +48,7 @@ with DAG(
 
     run_this_2 = BashOperator(
         task_id="run_after_loop",
-        bash_command="dbtlog --env=databricks --dwhcid=jaffle_shop_databricks_connection --azmonitorcid=azure_monitor",
+        bash_command="dbtlog --env=snowflake --dwhcid=jaffle_shop_databricks_connection --azmonitorcid=azure_monitor",
     )
 
     e2 = EmptyOperator(task_id="post_dbt")
