@@ -48,7 +48,7 @@ with DAG(
 
     run_this_2 = BashOperator(
         task_id="run_after_loop",
-        bash_command="dbtlog --env=snowflake --dwhcid=jaffle_shop_databricks_connection --azmonitorcid=azure_monitor",
+        bash_command="dbtlog --env=databricks --dwhcid=jaffle_shop_databricks_connection --azmonitorcid=azure_monitor",
     )
 
     e2 = EmptyOperator(task_id="post_dbt")
