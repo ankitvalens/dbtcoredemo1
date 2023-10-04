@@ -31,7 +31,7 @@ profile_config = ProfileConfig(
 with DAG(
         dag_id="jaffle_shop_dbt_61",
         start_date=datetime(2023, 10, 1),
-        schedule="@daily",
+        schedule="@hourly",
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
