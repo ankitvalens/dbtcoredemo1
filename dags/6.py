@@ -49,7 +49,7 @@ with DAG(
     run_this_2 = BashOperator(
         task_id="run_after_loop",
         bash_command="dbtlog --env=databricks --dwhcid=jaffle_shop_databricks_connection --azmonitorcid=azure_monitor",
-        trigger_rule='all_done'
+        # trigger_rule='all_done'
     )
 
     e2 = EmptyOperator(task_id="post_dbt")
