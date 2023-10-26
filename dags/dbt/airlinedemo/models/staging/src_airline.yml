@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: dbt_airlinedemodb
+    tables:
+      - name: raw_carriers
+      - name: raw_planes
+      - name: raw_airports
+      - name: raw_flights

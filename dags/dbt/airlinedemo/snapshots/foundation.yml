@@ -1,0 +1,9 @@
+version: 2
+
+snapshots:
+  - name: fnd_planes
+    columns:
+      - name: manufacturer
+        tests:
+          - dq_is_null:
+              group_by_column: ['manufacturer', 'year']

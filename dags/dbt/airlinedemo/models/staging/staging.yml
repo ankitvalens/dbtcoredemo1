@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: brz_flights
+
+    columns:
+      - name: ArrTime
+        tests:
+          - arrTime_should_be_lt_2400:
+              is_test: False
+          - is_null:
+              is_test: False
