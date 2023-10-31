@@ -43,4 +43,4 @@ with DAG(
 
     e2 = EmptyOperator(task_id="post_dbt")
 
-    e1 >> dbt_tg >> purview >> e2
+    e1 >> purview >> e2
