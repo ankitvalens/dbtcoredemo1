@@ -6,6 +6,7 @@ from airflow.operators.empty import EmptyOperator
 from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, ProjectConfig
 from cosmos.profiles import DatabricksTokenProfileMapping
 from cosmos.constants import TestBehavior
+from airflow.operators.bash import BashOperator
 
 #PROJECT_ROOT_PATH="/opt/airflow/git/jaffle_shop.git/dags/dbt/jaffle_shop"  --> managed airflow path
 #PROJECT_ROOT_PATH="/home/gopal/dbt-workspace/jaffle_shop/dags/dbt/jaffle_shop"  --> local development path
@@ -29,11 +30,22 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
+    deps = BashOperator(
+        task_id="deps",
+        bash_command="dbt deps",
+    )
+
     dbt_tg = DbtTaskGroup(
         project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH),
         profile_config=profile_config,
     )
 
+    purview = BashOperator(
+        task_id="deps",
+        bash_command="dbtpurview",
+        trigger_rule= "all_done"
+    )
+
     e2 = EmptyOperator(task_id="post_dbt")
 
-    e1 >> dbt_tg >> e2
+    e1 >> deps >> dbt_tg >> purview >> e2
