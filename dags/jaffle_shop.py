@@ -41,7 +41,7 @@ with DAG(
     )
 
     purview = BashOperator(
-        task_id="deps",
+        task_id="purview",
         bash_command="dbtpurview",
         trigger_rule= "all_done"
     )
