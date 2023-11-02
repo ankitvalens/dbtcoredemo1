@@ -34,7 +34,7 @@ with DAG(
         project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH),
         profile_config=profile_config,
         operator_args={
-            "env": {"DBT_TARGET_PATH": "/opt/airflow/git/dbtcoredemo1.git/dags/dbt/airlinedemo/target/"},
+            "env": {"DBT_TARGET_PATH": "/usr/"},
         }
     )
 
