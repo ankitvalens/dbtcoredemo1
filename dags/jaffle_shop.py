@@ -30,10 +30,10 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
-    # dbt_tg = DbtTaskGroup(
-    #     project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH),
-    #     profile_config=profile_config,
-    # )
+    dbt_tg = DbtTaskGroup(
+        project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH),
+        profile_config=profile_config,
+    )
 
     purview = BashOperator(
         task_id="purview",
@@ -43,4 +43,4 @@ with DAG(
 
     e2 = EmptyOperator(task_id="post_dbt")
 
-    e1 >> purview >> e2
+    e1 >> dbt_tg >> purview >> e2
