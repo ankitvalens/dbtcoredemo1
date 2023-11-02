@@ -34,13 +34,13 @@ with DAG(
         project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH),
         profile_config=profile_config,
         operator_args={
-            "env": {"DBT_TARGET_PATH": "/usr/"},
+            "env": {"DBT_TARGET_PATH": "/tmp/"},
         }
     )
 
     purview = BashOperator(
         task_id="purview",
-        bash_command="dbtpurview",
+        bash_command="dbtpurview --env=/tmp",
         trigger_rule= "all_done"
     )
 
