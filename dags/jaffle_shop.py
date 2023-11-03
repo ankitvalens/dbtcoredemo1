@@ -30,13 +30,13 @@ with DAG(
 ):
     e1 = EmptyOperator(task_id="pre_dbt")
 
-    dbt_tg = DbtTaskGroup(
-        project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH),
-        profile_config=profile_config,
-        operator_args={
-            "env": {"DBT_TARGET_PATH": "/tmp/"},
-        }
-    )
+    # dbt_tg = DbtTaskGroup(
+    #     project_config=ProjectConfig(dbt_project_path=PROJECT_ROOT_PATH),
+    #     profile_config=profile_config,
+    #     operator_args={
+    #         "env": {"DBT_TARGET_PATH": "/tmp/"},
+    #     }
+    # )
 
     purview = BashOperator(
         task_id="purview",
