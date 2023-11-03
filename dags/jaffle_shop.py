@@ -40,7 +40,7 @@ with DAG(
 
     purview = BashOperator(
         task_id="purview",
-        bash_command="dbtpurview",
+        bash_command="dbtpurview --path=/tmp",
         trigger_rule= "all_done"
     )
 
