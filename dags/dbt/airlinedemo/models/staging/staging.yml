@@ -5,8 +5,11 @@ models:
 
     columns:
       - name: ArrTime
+        description : it's arrTime updated
         tests:
           - arrTime_should_be_lt_2400:
               is_test: False
           - is_null:
               is_test: False
+      - name: distance_in_km
+        description: it distnace in km updated
