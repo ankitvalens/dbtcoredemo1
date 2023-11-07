@@ -4,7 +4,7 @@ from airflow import DAG
 from airflow.models import Variable
 from airflow.operators.empty import EmptyOperator
 from cosmos import DbtDag, LoadMode, RenderConfig, DbtTaskGroup, ProfileConfig, ProjectConfig
-from cosmos.profiles import DatabricksTokenProfileMapping
+from cosmos.profiles import SnowflakeUserPasswordProfileMapping
 from cosmos.constants import TestBehavior
 from airflow.operators.bash import BashOperator
 
@@ -18,7 +18,7 @@ profile_config = ProfileConfig(
     #If you are using profiles.yml file in git use below profiles_yml_filepath
     #profiles_yml_filepath=f"{PROJECT_ROOT_PATH}/profiles.yml",
     #here we are using Airflow connection to provide profile details
-    profile_mapping=DatabricksTokenProfileMapping(
+    profile_mapping=SnowflakeUserPasswordProfileMapping(
         conn_id = 'snowflake_conn'
     )
 )
