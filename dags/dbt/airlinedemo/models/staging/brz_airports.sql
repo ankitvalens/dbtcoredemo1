@@ -1,1 +1,1 @@
-{{ sri_generic(source('dbt_airlinedemodb','raw_airports')) }}
+{{ sri_generic(source('purview_dbt','raw_airports')) }}

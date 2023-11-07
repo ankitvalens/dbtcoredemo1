@@ -1,6 +1,6 @@
 with
 source as (
-    select * from {{ source('dbt_airlinedemodb','raw_flights') }}
+    select * from {{ source('purview_dbt','raw_flights') }}
 ),
 
 nv_sri_flights as (

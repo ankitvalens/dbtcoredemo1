@@ -3,8 +3,8 @@
 
 {{
     config(
-      target_database='hive_metastore',
-      target_schema='dbt_airlinedemodb',
+      target_database='awsguzzle',
+      target_schema='purview_dbt',
       unique_key='tailnum',
 
       strategy='timestamp',

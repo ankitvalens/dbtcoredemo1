@@ -1,7 +1,8 @@
 version: 2
 
 sources:
-  - name: dbt_airlinedemodb
+  - name: purview_dbt
+    database: awsguzzle
     tables:
       - name: raw_carriers
       - name: raw_planes
