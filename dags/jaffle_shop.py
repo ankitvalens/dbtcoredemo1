@@ -40,7 +40,7 @@ with DAG(
 
     purview = BashOperator(
         task_id="purview",
-        bash_command="dbtpurview --path=/tmp",
+        bash_command="dbtpurview --path=/tmp --env=snowflake --dwhcid=snowflake_conn",
         trigger_rule= "all_done"
     )
 
