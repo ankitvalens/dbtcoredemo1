@@ -33,7 +33,7 @@ dag = DAG(
 
 bash_task = BashOperator(
     task_id='my_task',
-    bash_command='exit 1',
+    bash_command='echo somethinh',
     dag=dag
 )
 
