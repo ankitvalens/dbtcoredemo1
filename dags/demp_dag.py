@@ -3,13 +3,42 @@ from airflow.models import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 
+_SUCCESS_STATES = ['success', 'skipped']
+
 def on_failure_callback_dag(context):
     dag_run = context.get('dag_run')
     print(f'DAG FAILURE: Dag with Dag run {dag_run} Failed.')
 
-def on_success_callback_dag(context):
-    dag_run = context.get('dag_run')
+def on_success_callback_dag(cls,context):
     print(context)
+    dag = context['dag']
+    dag_run = context['dag_run']
+    task_instances = dag_run.get_task_instances()
+    dag_id=dag.dag_id
+    run_id=context['run_id']
+    success=dag_run.state in _SUCCESS_STATES
+    reason=context['reason']
+    tasks=[cls._get_task_instance_result(ti) for ti in task_instances]
+    state=dag_run.state
+    execution_date=cls._get_datetime_isoformat(dag_run.execution_date)
+    start_date=cls._get_datetime_isoformat(dag_run.start_date)
+    end_date=cls._get_datetime_isoformat(dag_run.end_date)
+    original_dates=cls._get_original_dates(dag_run.execution_date, dag_run.start_date, dag_run.end_date)
+
+    print(dag_run)
+    print(dag)
+    print(task_instances)
+    print(dag_id)
+    print(run_id)
+    print(success)
+    print(reason)
+    print(tasks)
+    print(state)
+    print(execution_date)
+    print(start_date)
+    print(end_date)
+    print(original_dates)
+    
     print(f'DAG SUCCES: Dag with Dag run {dag_run} Failed.')
 
 def on_success_callback_task(context):
