@@ -97,7 +97,7 @@ bash_task = BashOperator(
 
 python_task = PythonOperator(
     task_id = 'my_python_task_1',
-    python_callable=success_func,
+    python_callable=failure_func,
     # on_failure_callback=on_failure_callback_task,
     # on_success_callback=on_success_callback_task,
     dag=dag
