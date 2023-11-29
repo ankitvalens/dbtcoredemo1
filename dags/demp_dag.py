@@ -4,6 +4,7 @@ from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
 
 _SUCCESS_STATES = ['success', 'skipped']
+_EXCEPTION_MSG_LIMIT = 10 * 1024  # 10kb
 
 def on_failure_callback_dag(context):
     dag_run = context.get('dag_run')
@@ -60,6 +61,8 @@ def on_failure_callback_task(context):
     dag_run = context.get('dag_run')
     print(context)
     task_instances = dag_run.get_task_instances()
+    exception_message = context['exception'] if 'exception' in context else None
+    print(exception_message)
     print(f'Specific Task Failure: Task {task_instances} failed for dag run {dag_run}.')
 
 def on_failure_callback_task_args(context):
