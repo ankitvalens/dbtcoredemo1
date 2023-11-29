@@ -7,6 +7,16 @@ def on_failure_callback_dag(context):
     dag_run = context.get('dag_run')
     print(f'DAG FAILURE: Dag with Dag run {dag_run} Failed.')
 
+def on_success_callback_dag(context):
+    dag_run = context.get('dag_run')
+    print(context)
+    print(f'DAG SUCCES: Dag with Dag run {dag_run} Failed.')
+
+def on_success_callback_task(context):
+    dag_run = context.get('dag_run')
+    print(context)
+    print(f'TASK SUCCES: Dag with Dag run {dag_run} Failed.')
+
 def on_failure_callback_task(context):
     dag_run = context.get('dag_run')
     print(context)
@@ -21,6 +31,9 @@ def on_failure_callback_task_args(context):
 def failure_func():
     raise ArithmeticError()
 
+def success_func():
+    print("sucessfully runed")
+
 dag = DAG(
     dag_id='dag_with_templated_dir',
     start_date=datetime(2023,11,28),
@@ -28,20 +41,23 @@ dag = DAG(
     catchup=False,
     max_active_runs=1,
     default_args={
-        'on_failure_callback': on_failure_callback_task_args
+        'on_failure_callback': on_failure_callback_task_args,
+        'on_success_callback': on_success_callback_dag
     }
 )
 
 bash_task = BashOperator(
     task_id='my_task',
     bash_command='echo somethinh',
-    dag=dag
+    dag=dag,
+    on_success_callback=on_success_callback_task
 )
 
 python_task = PythonOperator(
     task_id = 'my_python_task_1',
-    python_callable=failure_func,
+    python_callable=success_func,
     on_failure_callback=on_failure_callback_task,
+    on_success_callback=on_success_callback_task,
     dag=dag
 )
 
