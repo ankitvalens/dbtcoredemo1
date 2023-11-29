@@ -17,7 +17,7 @@ def on_success_callback_dag(context):
     dag_id=dag.dag_id
     run_id=context['run_id']
     success=dag_run.state in _SUCCESS_STATES
-    reason=context['reason']
+    # reason=context['reason']
     # tasks=[cls._get_task_instance_result(ti) for ti in task_instances]
     state=dag_run.state
     execution_date=dag_run.execution_date
@@ -30,7 +30,7 @@ def on_success_callback_dag(context):
     print(dag_id)
     print(run_id)
     print(success)
-    print(reason)
+    # print(reason)
     print(state)
     print(execution_date)
     print(start_date)
