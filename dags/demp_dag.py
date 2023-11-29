@@ -79,13 +79,13 @@ def success_func():
 dag = DAG(
     dag_id='dag_with_templated_dir',
     start_date=datetime(2023,11,28),
-    on_failure_callback=on_success_callback_dag,
+    # on_failure_callback=on_success_callback_dag,
     catchup=False,
-    max_active_runs=1
-#     default_args={
-#         'on_failure_callback': on_success_callback_dag,
-#         'on_success_callback': on_success_callback_dag
-#     }
+    max_active_runs=1,
+    default_args={
+        'on_failure_callback': on_success_callback_dag,
+        'on_success_callback': on_success_callback_dag
+    }
 )
 
 bash_task = BashOperator(
