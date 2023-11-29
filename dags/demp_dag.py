@@ -13,8 +13,8 @@ def on_failure_callback_dag(context):
 def on_success_callback_dag(context):
     print(context)
     dag = context['dag']
-    exp = context['exception']
-    print(exp)
+    # exp = context['exception']
+    # print(exp)
     print("demo exp")
     dag_run = context['dag_run']
     task_instances = dag_run.get_task_instances()
@@ -90,27 +90,27 @@ def success_func():
 dag = DAG(
     dag_id='dag_with_templated_dir',
     start_date=datetime(2023,11,28),
-    # on_failure_callback=on_success_callback_dag,
+    on_failure_callback=on_success_callback_dag,
     catchup=False,
     max_active_runs=1,
-    default_args={
-        'on_failure_callback': on_success_callback_dag,
-        'on_success_callback': on_success_callback_dag
-    }
+    # default_args={
+    #     'on_failure_callback': on_success_callback_dag,
+    #     'on_success_callback': on_success_callback_dag
+    # }
 )
 
 bash_task = BashOperator(
     task_id='my_task',
     bash_command='echo somethinh',
     dag=dag,
-    # on_success_callback=on_success_callback_task
+    on_success_callback=on_success_callback_task
 )
 
 python_task = PythonOperator(
     task_id = 'my_python_task_1',
     python_callable=failure_func,
     on_failure_callback=on_failure_callback_task,
-    # on_success_callback=on_success_callback_task,
+    on_success_callback=on_success_callback_task,
     dag=dag
 )
 
