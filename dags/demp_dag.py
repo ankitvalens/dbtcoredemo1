@@ -61,7 +61,7 @@ def on_failure_callback_task(context):
     dag_run = context.get('dag_run')
     print(context)
     task_instances = dag_run.get_task_instances()
-    exception_message = context['exception'] 
+    exception_message = context.get('exception') 
     print(exception_message)
     print(f'Specific Task Failure: Task {task_instances} failed for {exception_message} dag run {dag_run}.')
 
