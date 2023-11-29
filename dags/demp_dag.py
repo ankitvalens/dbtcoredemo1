@@ -13,6 +13,8 @@ def on_failure_callback_dag(context):
 def on_success_callback_dag(context):
     print(context)
     dag = context['dag']
+    exp = context['exception']
+    print(exp)
     dag_run = context['dag_run']
     task_instances = dag_run.get_task_instances()
     dag_id=dag.dag_id
