@@ -29,6 +29,7 @@ def on_success_callback_dag(context):
     end_date=dag_run.end_date
 
     for ti in task_instances:
+        print(ti)
         print(ti.task_id)
         print(ti.state)
         print(ti.log_url)
