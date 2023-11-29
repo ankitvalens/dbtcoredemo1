@@ -34,8 +34,6 @@ def on_success_callback_dag(context):
         print(ti.start_date)
         print(ti.max_tries)
         print(ti.try_number)
-        print(ti.exception_message)
-
 
 
 
