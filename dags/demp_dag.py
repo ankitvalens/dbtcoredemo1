@@ -24,6 +24,21 @@ def on_success_callback_dag(context):
     start_date=dag_run.start_date
     end_date=dag_run.end_date
 
+    for ti in task_instances:
+        print(ti.task_id)
+        print(ti.state)
+        print(ti.log_url)
+        print(ti.prev_attempted_tries)
+        print(ti.duration)
+        print(ti.end_date)
+        print(ti.start_date)
+        print(ti.max_tries)
+        print(ti.try_number)
+        print(ti.exception_message)
+
+
+
+
     print(dag_run)
     print(dag)
     print(task_instances)
