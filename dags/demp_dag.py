@@ -9,7 +9,7 @@ def on_failure_callback_dag(context):
     dag_run = context.get('dag_run')
     print(f'DAG FAILURE: Dag with Dag run {dag_run} Failed.')
 
-def on_success_callback_dag(cls,context):
+def on_success_callback_dag(context):
     print(context)
     dag = context['dag']
     dag_run = context['dag_run']
@@ -18,12 +18,11 @@ def on_success_callback_dag(cls,context):
     run_id=context['run_id']
     success=dag_run.state in _SUCCESS_STATES
     reason=context['reason']
-    tasks=[cls._get_task_instance_result(ti) for ti in task_instances]
+    # tasks=[cls._get_task_instance_result(ti) for ti in task_instances]
     state=dag_run.state
-    execution_date=cls._get_datetime_isoformat(dag_run.execution_date)
-    start_date=cls._get_datetime_isoformat(dag_run.start_date)
-    end_date=cls._get_datetime_isoformat(dag_run.end_date)
-    original_dates=cls._get_original_dates(dag_run.execution_date, dag_run.start_date, dag_run.end_date)
+    execution_date=dag_run.execution_date
+    start_date=dag_run.start_date
+    end_date=dag_run.end_date
 
     print(dag_run)
     print(dag)
@@ -32,12 +31,10 @@ def on_success_callback_dag(cls,context):
     print(run_id)
     print(success)
     print(reason)
-    print(tasks)
     print(state)
     print(execution_date)
     print(start_date)
     print(end_date)
-    print(original_dates)
     
     print(f'DAG SUCCES: Dag with Dag run {dag_run} Failed.')
 
