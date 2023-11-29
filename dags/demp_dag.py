@@ -6,11 +6,11 @@ from airflow.operators.python import PythonOperator
 _SUCCESS_STATES = ['success', 'skipped']
 _EXCEPTION_MSG_LIMIT = 10 * 1024  # 10kb
 
-def on_failure_callback_dag(context):
+def on_success_callback_dag(context):
     dag_run = context.get('dag_run')
     print(f'DAG FAILURE: Dag with Dag run {dag_run} Failed.')
 
-def on_success_callback_dag(context):
+def on_failure_callback_dag(context):
     print(context)
     dag = context['dag']
     # exp = context['exception']
@@ -87,16 +87,21 @@ def failure_func():
 def success_func():
     print("sucessfully runed")
 
+def on_execute_callback(context):
+    print("on execute")
+    print(context)
+
 dag = DAG(
     dag_id='dag_with_templated_dir',
     start_date=datetime(2023,11,28),
     on_failure_callback=on_success_callback_dag,
     catchup=False,
     max_active_runs=1,
-    # default_args={
-    #     'on_failure_callback': on_success_callback_dag,
-    #     'on_success_callback': on_success_callback_dag
-    # }
+    default_args={
+        'on_execute_callback': on_execute_callback,
+        'on_failure_callback': on_success_callback_dag,
+        'on_success_callback': on_success_callback_dag
+    }
 )
 
 bash_task = BashOperator(
