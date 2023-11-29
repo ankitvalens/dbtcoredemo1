@@ -59,6 +59,7 @@ def on_success_callback_task(context):
 
 def on_failure_callback_task(context):
     dag_run = context.get('dag_run')
+    print(dag_run)
     print(context)
     task_instances = dag_run.get_task_instances()
     exception_message = context.get('exception') 
