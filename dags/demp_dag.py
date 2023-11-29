@@ -82,7 +82,7 @@ def on_failure_callback_task_args(context):
     print(f'Generic Failure: Task {task_instances} failed for dag run {dag_run}.')
 
 def failure_func():
-    raise "ArithmeticError()"
+    raise ValueError('File not parsed completely/correctly')
 
 def success_func():
     print("sucessfully runed")
