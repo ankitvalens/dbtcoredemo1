@@ -99,7 +99,7 @@ dag = DAG(
     max_active_runs=1,
     default_args={
         'on_execute_callback': on_execute_callback,
-        'on_failure_callback': on_success_callback_dag,
+        'on_failure_callback': on_failure_callback_dag,
         'on_success_callback': on_success_callback_dag
     }
 )
