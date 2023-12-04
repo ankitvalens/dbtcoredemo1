@@ -2,6 +2,8 @@ from datetime import datetime
 from airflow.models import DAG
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
+import requests
+import json
 
 _SUCCESS_STATES = ['success', 'skipped']
 _EXCEPTION_MSG_LIMIT = 10 * 1024  # 10kb
@@ -33,6 +35,9 @@ def on_failure_callback_dag(context):
         print(ti.task_id)
         print(ti.state)
         print(ti.log_url)
+
+        data = requests.get(ti.log_url)
+        print(json.dumps(data))
         print(ti.prev_attempted_tries)
         print(ti.duration)
         print(ti.end_date)
@@ -97,11 +102,11 @@ dag = DAG(
     on_failure_callback=on_failure_callback_dag,
     catchup=False,
     max_active_runs=1,
-    # default_args={
-    #     'on_execute_callback': on_execute_callback,
-    #     'on_failure_callback': on_failure_callback_dag,
-    #     'on_success_callback': on_success_callback_dag
-    # }
+    default_args={
+        'on_execute_callback': on_execute_callback,
+        'on_failure_callback': on_failure_callback_dag,
+        'on_success_callback': on_success_callback_dag
+    }
 )
 
 bash_task = BashOperator(
