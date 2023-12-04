@@ -36,7 +36,7 @@ def on_failure_callback_dag(context):
         print(ti.state)
         print(ti.log_url)
 
-        data = requests.get("https://localhost:8080/api/v1/dags/dag_with_templated_dir/dagRuns/manual__2023-12-04T11:47:36.416879+00:00/taskInstances/my_task/logs/1?full_content=false")
+        data = requests.get("https://localhost:8080/api/v1/dags/dag_with_templated_dir/dagRuns/manual__2023-12-04T11:47:36.416879+00:00/taskInstances/my_task/logs/1?full_content=false",auth=("admin", "1234"))
         print(data)
         print(ti.prev_attempted_tries)
         print(ti.duration)
