@@ -40,7 +40,7 @@ with DAG(
 
     purview = BashOperator(
         task_id="purview",
-        bash_command=f"dbtpurview --path={PROJECT_ROOT_PATH}/target",
+        bash_command=f"dbtlog --env=databricks --dwhcid=jaffle_shop_databricks_connection --azmonitorcid=azure_monitor",
         trigger_rule= "all_done"
     )
 
